@@ -1,7 +1,6 @@
 package com.example.sunnyweather.ui.place
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +9,11 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sunnyweather.MainActivity
-import com.example.sunnyweather.R
 import com.example.sunnyweather.databinding.FragmentPlaceBinding
 import com.example.sunnyweather.ui.master.MasterActivity
-import com.example.sunnyweather.ui.weather.WeatherActivity
 
 class PlaceFragment: Fragment() {
 

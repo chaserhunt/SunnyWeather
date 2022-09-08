@@ -8,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sunnyweather.databinding.PlaceItemBinding
 import com.example.sunnyweather.logic.model.Place
-import com.example.sunnyweather.ui.weather.WeatherActivity
+import com.example.sunnyweather.ui.master.MasterActivity
+import com.example.sunnyweather.ui.weather.WeatherFragment
 
 class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: List<Place>) :
     RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
@@ -25,22 +26,22 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
             Log.d("Test", "测试")
             val position = holder.adapterPosition
             val place = placeList[position]
-            val activity = fragment.activity
-            if(activity is WeatherActivity){
-                activity.drawerLayout.closeDrawers()
-                activity.viewModel.locationLng = place.location.lng
-                activity.viewModel.locationLat = place.location.lat
-                activity.viewModel.placeName = place.name
-                activity.refreshWeather()
+            val parentFragment = fragment.parentFragment
+            if(parentFragment is WeatherFragment){
+                parentFragment.drawerLayout.closeDrawers()
+                parentFragment.viewModel.locationLng = place.location.lng
+                parentFragment.viewModel.locationLat = place.location.lat
+                parentFragment.viewModel.placeName = place.name
+                parentFragment.refreshWeather()
             }else{
-                val intent = Intent(parent.context, WeatherActivity::class.java)
+                val intent = Intent(parent.context, MasterActivity::class.java)
                     .apply {
                         putExtra("location_lng", place.location.lng)
                         putExtra("location_lat", place.location.lat)
                         putExtra("place_name", place.name)
                     }
                 fragment.startActivity(intent)
-                activity?.finish()
+                fragment.activity?.finish()
             }
             fragment.viewModel.savePlace(place)
 

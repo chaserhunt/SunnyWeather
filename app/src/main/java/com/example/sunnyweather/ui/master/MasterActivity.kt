@@ -5,23 +5,25 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.example.sunnyweather.R
 import com.example.sunnyweather.ui.test.TestFragment
+import com.example.sunnyweather.ui.weather.WeatherFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MasterActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager
     private lateinit var navigationView: BottomNavigationView
 
+    val viewModel by lazy { ViewModelProvider(this).get(MasterViewModel::class.java) }
+
     val viewPagerListener: ViewPager.OnPageChangeListener = object : ViewPager.OnPageChangeListener{
         override fun onPageScrolled(
             position: Int,
             positionOffset: Float,
             positionOffsetPixels: Int
-        ) {
-
-        }
+        ) {}
 
         override fun onPageSelected(position: Int) {
             when(position){
@@ -47,10 +49,21 @@ class MasterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_master)
 
+        if(viewModel.locationLng.isEmpty()){
+            viewModel.locationLng = intent.getStringExtra("location_lng") ?: ""
+        }
+        if(viewModel.locationLat.isEmpty()){
+            viewModel.locationLat = intent.getStringExtra("location_lat") ?: ""
+        }
+        if(viewModel.placeName.isEmpty()){
+            viewModel.placeName = intent.getStringExtra("place_name") ?: ""
+        }
+
+
         viewPager = findViewById(R.id.viewPager)
         navigationView = findViewById(R.id.nav_view)
         navigationView.itemIconTintList = null
-        val weatherFragment = TestFragment()
+        val weatherFragment = WeatherFragment()
         val findingFragment = TestFragment()
         val settingFragment = TestFragment()
 
