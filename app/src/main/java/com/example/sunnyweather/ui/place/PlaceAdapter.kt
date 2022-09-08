@@ -5,12 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sunnyweather.databinding.PlaceItemBinding
 import com.example.sunnyweather.logic.model.Place
-import com.example.sunnyweather.logic.model.Weather
-import com.example.sunnyweather.ui.weather.TestActivity
 import com.example.sunnyweather.ui.weather.WeatherActivity
 
 class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: List<Place>) :
